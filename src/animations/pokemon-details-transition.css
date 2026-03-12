@@ -1,0 +1,17 @@
+@keyframes pokemonZoomIn {
+	from {
+		transform: scale(0.88);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
+@keyframes pokemonZoomOut {
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(1.05);
+	}
+}

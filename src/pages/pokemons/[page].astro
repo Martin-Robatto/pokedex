@@ -1,0 +1,89 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import PokemonCard from '../../components/PokemonCard.astro';
+import Layout from '../../layout/layout.astro';
+import {
+	getPokemonsWithOversize,
+	type PokemonWithOversize,
+} from '../../services/pokemon.service';
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const PAGE_SIZE = 12;
+	const POKEMON_LIMIT = 151;
+	const pokemonWithSize = await getPokemonsWithOversize(POKEMON_LIMIT);
+
+	return paginate(pokemonWithSize, {
+		pageSize: PAGE_SIZE,
+	});
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props as { page: Page<PokemonWithOversize> };
+const pageTitle = `Pokemons | Page ${page.currentPage}`;
+const firstItem = page.start + 1;
+const lastItem = page.end + 1;
+---
+
+<Layout title={pageTitle}>
+	<main class="my-6">
+		<div class="mb-6 flex items-center justify-between">
+			<div>
+				<h1 class="text-3xl font-bold">Pokemons</h1>
+				<p class="mt-1 text-sm text-slate-300">
+					Page {page.currentPage} of {page.lastPage} ({firstItem}-{lastItem} of {page.total})
+				</p>
+			</div>
+		</div>
+
+		<section class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+			{
+				page.data.map((pokemon) => (
+					<PokemonCard
+						name={pokemon.name}
+						url={pokemon.url}
+						isOversize={pokemon.isOversize}
+					/>
+				))
+			}
+		</section>
+
+		<div class="mt-8 flex items-center justify-between">
+			{
+				page.url.prev ? (
+					<a
+						href={page.url.prev}
+						class="rounded-md border border-slate-600 px-4 py-2 text-sm hover:bg-slate-700"
+					>
+						Previous
+					</a>
+				) : (
+					<span class="cursor-not-allowed rounded-md border border-slate-700 px-4 py-2 text-sm text-slate-500">
+						Previous
+					</span>
+				)
+			}
+			{
+				page.url.next ? (
+					<a
+						href={page.url.next}
+						class="rounded-md border border-slate-600 px-4 py-2 text-sm hover:bg-slate-700"
+					>
+						Next
+					</a>
+				) : (
+					<span class="cursor-not-allowed rounded-md border border-slate-700 px-4 py-2 text-sm text-slate-500">
+						Next
+					</span>
+				)
+			}
+		</div>
+		<div class="mt-3 text-center text-sm text-slate-400">
+			<a href="/pokemons/1" class="hover:text-slate-200">
+				Go to page 1
+			</a>
+			{' · '}
+			<a href={`/pokemons/${page.lastPage}`} class="hover:text-slate-200">
+				Go to last page
+			</a>
+		</div>
+	</main>
+</Layout>

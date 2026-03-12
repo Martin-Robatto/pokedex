@@ -1,0 +1,62 @@
+---
+import Layout from '../layout/layout.astro';
+---
+
+<Layout title="Home | Pokemon">
+	<main class="py-10">
+		<section class="rounded-2xl border border-slate-700 bg-gradient-to-b from-slate-700/60 to-slate-800/30 p-8 shadow-lg">
+			<div class="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+				<div>
+					<p class="text-sm font-semibold uppercase tracking-widest text-slate-300">Pokedex</p>
+					<h1 class="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+						Explore Pokemons with smooth transitions
+					</h1>
+					<p class="mt-4 max-w-prose text-slate-200/90">
+						Browse the paginated list, open a Pokemon, and enjoy a zoom-in transition between
+						the card and the details page.
+					</p>
+					<div class="mt-8 flex flex-wrap gap-3">
+						<a
+							href="/pokemons/1"
+							class="inline-block rounded-md border border-slate-500 bg-slate-700 px-4 py-2 font-medium text-white transition-colors hover:bg-slate-600"
+						>
+							Start browsing
+						</a>
+					</div>
+				</div>
+
+				<div class="relative mx-auto w-fit">
+					<div class="absolute -inset-4 rounded-full bg-red-500/10 blur-2xl" aria-hidden="true"></div>
+					<img
+						src="/hero-pokeball.svg"
+						alt="Pokeball"
+						class="relative h-28 w-28 drop-shadow sm:h-36 sm:w-36"
+						loading="eager"
+						decoding="async"
+					/>
+				</div>
+			</div>
+		</section>
+
+		<section class="mt-10 grid gap-4 sm:grid-cols-3">
+			<div class="rounded-xl border border-slate-700 bg-slate-700/40 p-5">
+				<p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Pagination</p>
+				<p class="mt-2 text-sm text-slate-200">
+					Navigate page by page with Previous and Next controls.
+				</p>
+			</div>
+			<div class="rounded-xl border border-slate-700 bg-slate-700/40 p-5">
+				<p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Transitions</p>
+				<p class="mt-2 text-sm text-slate-200">
+					Shared-element zoom from card to details.
+				</p>
+			</div>
+			<div class="rounded-xl border border-slate-700 bg-slate-700/40 p-5">
+				<p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Oversize</p>
+				<p class="mt-2 text-sm text-slate-200">
+					Big Pokemons are tagged so they stand out.
+				</p>
+			</div>
+		</section>
+	</main>
+</Layout>

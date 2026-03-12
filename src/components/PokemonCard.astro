@@ -1,0 +1,40 @@
+---
+interface Props {
+	name: string;
+	url: string;
+	isOversize: boolean;
+}
+
+const { name, url, isOversize } = Astro.props;
+const id = url.split('/').filter(Boolean).pop();
+const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+---
+
+<a
+	href={`/pokemons/${name}`}
+	transition:name={`card-${name}`}
+	class:list={[
+		'block cursor-pointer rounded-lg border bg-slate-700 p-4 text-center shadow-md transition-transform hover:-translate-y-0.5',
+		{
+			'border-slate-600': !isOversize,
+			'border-amber-400 ring-1 ring-amber-300/70': isOversize,
+		},
+	]}
+>
+	{
+		isOversize && (
+			<span class="inline-block rounded-full border border-amber-300 bg-amber-400/20 px-2 py-1 text-xs font-semibold uppercase tracking-wide text-amber-200">
+				Oversize
+			</span>
+		)
+	}
+	<img
+		transition:name={`image-${name}`}
+		src={imageUrl}
+		alt={name}
+		class="mx-auto mt-2 h-32 w-32 object-contain"
+		loading="lazy"
+		decoding="async"
+	/>
+	<h3 transition:name={`title-${name}`} class="mt-2 text-lg capitalize">{name}</h3>
+</a>

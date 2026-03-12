@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" fill="none">
+  <title>Pokeball</title>
+  <defs>
+    <radialGradient id="g" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(56 52) rotate(55) scale(120)">
+      <stop stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.18"/>
+    </radialGradient>
+  </defs>
+  <circle cx="80" cy="80" r="72" fill="#0f172a" fill-opacity="0.25" stroke="#334155" stroke-width="2"/>
+  <path d="M14 80a66 66 0 0 1 132 0H14z" fill="#ef4444" fill-opacity="0.75"/>
+  <path d="M14 80a66 66 0 0 0 132 0H14z" fill="#e2e8f0" fill-opacity="0.85"/>
+  <rect x="14" y="74" width="132" height="12" rx="6" fill="#0f172a" fill-opacity="0.65"/>
+  <circle cx="80" cy="80" r="18" fill="#0f172a" fill-opacity="0.65" stroke="#e2e8f0" stroke-opacity="0.8" stroke-width="2"/>
+  <circle cx="80" cy="80" r="9" fill="#e2e8f0" fill-opacity="0.9"/>
+  <circle cx="80" cy="80" r="72" fill="url(#g)"/>
+</svg>
