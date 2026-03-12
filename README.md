@@ -1,4 +1,6 @@
-# Astro Starter Kit: Minimal
+# Pokedex Astro App
+
+This project is a comprehensive Pokedex web application built with Astro, designed to showcase advanced Astro development skills. It demonstrates the use of Astro's component-based architecture, dynamic routing, server-side rendering, and integration with external APIs to fetch and display detailed Pokemon information. The app includes features like pagination, individual Pokemon details pages, and smooth animations, all implemented using modern web technologies within the Astro framework.
 
 ```sh
 pnpm create astro@latest -- --template minimal
