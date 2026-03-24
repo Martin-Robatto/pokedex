@@ -3,24 +3,27 @@ import type { GetStaticPaths } from 'astro';
 import { pokemonDetailsZoomAnimation } from '../../animations/pokemon-details-transition';
 import '../../animations/pokemon-details-transition.css';
 import Layout from '@layout/layout.astro';
-import { getPokemonByName, getPokemonList } from '../../services/pokemon.service';
+import { getPokemonById, getPokemonList } from '../../services/pokemon.service';
 
 export const getStaticPaths = (async () => {
 	const data = await getPokemonList();
 
-	return data.results.map((pokemon) => ({
-		params: { name: pokemon.name },
-	}));
+	return data.results.map((pokemon) => {
+		// Extract ID from URL like "https://pokeapi.co/api/v2/pokemon/25/"
+		const id = pokemon.url.split('/').filter(Boolean).pop();
+		return {
+			params: { id },
+		};
+	});
 }) satisfies GetStaticPaths;
 
+const { id } = Astro.params;
 
-const { name } = Astro.params;
-
-if (!name) {
-	throw new Error('Pokemon name is required');
+if (!id) {
+	throw new Error('Pokemon id is required');
 }
 
-const pokemon = await getPokemonByName(name);
+const pokemon = await getPokemonById(id);
 const imageUrl =
 	pokemon.sprites.other['official-artwork'].front_default ??
 	pokemon.sprites.front_default ??
@@ -28,7 +31,7 @@ const imageUrl =
 const audioUrl = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${pokemon.id}.ogg`;
 ---
 
-<Layout title={`${pokemon.name} | Pokemon`} description=`About ${pokemon.name}` image={imageUrl} author="Martin Robatto">
+<Layout title={`${pokemon.name} | Pokemon`}>
 	<main class="my-6">
 		<a
 			href="/"
@@ -38,12 +41,12 @@ const audioUrl = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 		</a>
 
 		<section
-			transition:name={`card-${pokemon.name}`}
+			transition:name={`card-${pokemon.id}`}
 			transition:animate={pokemonDetailsZoomAnimation}
 			class="rounded-xl border border-slate-600 bg-slate-700 p-6 text-center shadow-lg"
 		>
 			<img
-				transition:name={`image-${pokemon.name}`}
+				transition:name={`image-${pokemon.id}`}
 				src={imageUrl}
 				alt={pokemon.name}
 				class="mx-auto h-56 w-56 object-contain"
@@ -51,7 +54,7 @@ const audioUrl = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 				decoding="async"
 			/>
 
-			<h1 transition:name={`title-${pokemon.name}`} class="mt-3 text-3xl font-bold capitalize">
+			<h1 transition:name={`title-${pokemon.id}`} class="mt-3 text-3xl font-bold capitalize">
 				{pokemon.name}
 			</h1>
 			<p class="mt-1 text-slate-300">#{pokemon.id}</p>

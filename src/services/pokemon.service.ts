@@ -37,6 +37,16 @@ export async function getPokemonByName(name: string): Promise<PokemonDetailsResp
 	return (await resp.json()) as PokemonDetailsResponse;
 }
 
+export async function getPokemonById(id: number | string): Promise<PokemonDetailsResponse> {
+	const resp = await fetch(`${POKEAPI_BASE_URL}/pokemon/${id}`);
+
+	if (!resp.ok) {
+		throw new Error(`Could not load pokemon with id "${id}"`);
+	}
+
+	return (await resp.json()) as PokemonDetailsResponse;
+}
+
 export async function getPokemonsWithOversize(limit = 151): Promise<PokemonWithOversize[]> {
 	const data = await getPokemonList(limit);
 
